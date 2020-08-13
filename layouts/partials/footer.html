@@ -1,0 +1,70 @@
+    <footer>
+
+        <span class="footer_text">
+
+            {{ $root := "/" }}
+            {{ if .Site.BaseURL }}
+                {{ $root = .Site.BaseURL }}
+            {{ end }}
+
+            <a href="{{ $root }}">
+                <img src="{{ .Site.BaseURL }}/images/home_button_white_blue_circle_border.png" alt="Homepage Link" width="20px" height="20px">
+            </a>
+
+            &nbsp;
+
+            {{ if .Site.Copyright }}
+
+                &copy;
+                {{ .Site.Copyright }}
+
+            {{ else }}
+
+                {{ if or (.Site.Params.copyright_year) (.Site.Params.copyright_year_start) (.Site.Params.copyright_end) (.Site.Params.copyright_owner) }}
+
+                    &copy; Copyright
+
+                    {{ if .Site.Params.copyright_year }}
+
+                        {{ .Site.Params.copyright_year }}
+
+                    {{ else }}
+
+                        {{ if .Site.Params.copyright_year_start }}
+
+                            {{ .Site.Params.copyright_year_start }}
+                            -
+
+                        {{ end }}
+
+                        {{ if .Site.Params.copyright_year_end }}
+
+                            {{ .Site.Params.copyright_year_end }}
+
+                        {{ else }}
+
+                            {{ now.Format "2006" }}
+
+                        {{ end }}
+
+
+                    {{ end }}
+
+                    {{ if .Site.Params.copyright_owner }}
+                        {{ .Site.Params.copyright_owner }}
+                    {{ end }}
+
+                {{ else }}
+
+                    {{ .Site.Title }}
+
+                {{ end }}
+
+            {{ end }}
+
+        </span>
+
+    </footer>
+
+</body>
+</html>

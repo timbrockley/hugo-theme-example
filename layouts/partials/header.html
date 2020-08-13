@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="{{ .Description }}">
+    <meta name="robots" content="noarchive">
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css">
+    <script src="{{ .Site.BaseURL }}/js/navigation.js"></script>
+    <title>{{ .Title }}</title>
+</head>
+<body>
+
+    <header>
+        <span class="header_text">
+
+            {{ $root := "/" }}
+            {{ if .Site.BaseURL }}
+                {{ $root = .Site.BaseURL }}
+            {{ end }}
+
+            <a href="{{ $root }}">
+                <img src="{{ .Site.BaseURL }}/images/home_button_white_blue_circle_border.png" alt="Homepage Link" width="20px" height="20px">
+                {{ .Site.Title }}
+            </a>
+        </span>
+
+
+    </header>
+
+    <div id="header_title">
+
+        {{ if .IsHome }}
+            Home
+        {{ else }}
+            {{ substr .Title 0 24 }}
+        {{ end }}
+
+    </div>

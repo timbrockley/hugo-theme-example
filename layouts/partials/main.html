@@ -1,0 +1,109 @@
+    <main>
+
+    <!---------------------------------------------------------------------------------------------------->
+    {{ if .IsNode }}
+    <!---------------------------------------------------------------------------------------------------->
+
+        <div id="articles">
+
+            <!------------------------------------------------------------>
+            {{ $pages := "" }}
+            <!------------------------------------------------------------>
+            <!-- limit to "home" pages if on home list page and limit set in config file -->
+            {{ if and (eq .Kind "home") (ne .Site.Params.limit_home_navigation true) }}
+                {{ $pages = where .Site.AllPages "Kind" "page" }}
+            {{ else }}
+                {{ $pages = where .Pages "Kind" "page" }}
+            {{ end }}
+            <!------------------------------------------------------------>
+            {{ if .Site.Params.limit_home_articles }}
+                {{ $pages = first .Site.Params.limit_home_articles $pages }}
+            {{ end }}
+            <!------------------------------------------------------------>
+            {{ $list_sort_column := "Date" }}
+            {{ $list_sort_order := "desc" }}
+
+            {{ if eq (lower .Site.Params.list_sort_column) "title" }}
+                {{ $list_sort_column = "Title" }}
+            {{ end }}
+
+            {{ if or (eq (lower .Site.Params.list_sort_order) "asc") (eq (lower .Site.Params.list_sort_order) "a") }}
+                {{ $list_sort_order = "" }}
+            {{ end }}
+
+            {{ $base_url := .Site.BaseURL }}
+            <!------------------------------------------------------------>
+            {{ range sort $pages $list_sort_column $list_sort_order }}
+            <!------------------------------------------------------------>
+
+                <!------------------------------------------------------------>
+                <!-- set main class - may be overriden later if not image set  in front matter -->
+                {{ $class_image := "image" }}
+                {{ $class_title := "title" }}
+                {{ $class_description := "description" }}
+                {{ $class_date := "date" }}
+                <!------------------------------------------------------------>
+                <!-- use default image if not set in front matter -->
+                {{ $image := print $base_url "/images/hugo_logo_200x55.png" }}
+                {{ if .Params.image }}
+                    {{ $image = print $base_url .Params.image }}
+                {{ end }}
+                <!------------------------------------------------------------>
+                <!-- use filename if title does not exist in front matter -->
+                {{ $title := "" }}
+                {{ if .Title }}
+                    {{ $title = .Title }}
+                {{ else }}
+                    {{ $title = .File.TranslationBaseName }}
+                {{ end }}
+                <!------------------------------------------------------------>
+                {{ $description := "" }}
+                {{ if .Description }}
+                    {{ $description = .Description }}
+                {{ end }}
+                <!------------------------------------------------------------>
+                {{ $date := "" }}
+                {{ if .Date }}
+                    {{ $date = dateFormat "2006-01-02 15:04" .Date }}
+                {{ end }}
+                <!------------------------------------------------------------>
+                <!-- change class if image not set in front matter -->
+                {{ if .Params.image }}
+                    {{ $class_image = "image2" }}
+                    {{ $class_description = "description2" }}
+                {{ end }}
+                <!------------------------------------------------------------>
+
+                <article onclick="goto_url('{{ .Permalink }}');" >
+
+                    <p class="{{ $class_image }}"><a href="{{ .Permalink }}"><img src="{{ $image }}" alt="Article Link"></a></p>
+
+                    <p class="{{ $class_title }}"><a href="{{ .Permalink }}" alt="Article Link">{{ substr $title 0 24 }}</a></p>
+
+                    <p class="{{ $class_description }}" alt="Article Link">{{ $description }}</p>
+
+                    <p class="{{ $class_date }}" alt="Article Link">{{ $date }}</p>
+
+                    <p class="button"><a href="{{ .Permalink }}" alt="Article Link"><button>Read More</button></a></p>
+
+                </article>
+
+            <!------------------------------------------------------------>
+            {{ end }}
+            <!------------------------------------------------------------>
+
+        </div>
+
+    <!---------------------------------------------------------------------------------------------------->
+    {{ else }}
+    <!---------------------------------------------------------------------------------------------------->
+
+        <div id="content">
+            {{ .Content }}
+        </div>
+
+    <!---------------------------------------------------------------------------------------------------->
+    {{ end }}
+    <!---------------------------------------------------------------------------------------------------->
+
+    </main>

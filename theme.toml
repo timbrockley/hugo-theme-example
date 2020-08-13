@@ -1,0 +1,12 @@
+name = "Hugo Theme Example"
+description = "Hugo Theme Example"
+
+license = "MIT"
+licenselink = "https://github.com/timbrockley/hugo-theme-example/blob/master/LICENSE.md"
+
+homepage = "https://github.com/timbrockley/hugo-theme-example"
+min_version = "0.63.2"
+
+[author]
+  name = "Tim Brockley"
+  homepage = "https://github.com/timbrockley/hugo-theme-example"

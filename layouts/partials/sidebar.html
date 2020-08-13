@@ -1,0 +1,136 @@
+    <aside>
+
+    <!-- Sections -->
+    <nav>
+
+        <h4>Sections</h4>
+
+        <a href="{{ .Site.BaseURL }}/">home</a>
+        &nbsp;
+
+        {{ range sort .Site.Sections "Title" }}
+            <a href="{{ .Permalink }}">{{ .Type | lower }}</a>
+            &nbsp;
+        {{ end }}
+
+        <br><br>
+        <!------------------------------------------------------------>
+        <!-- if true limits select box to section specific links only -->
+        <!-- (useful for sites with many pages to reduce load page time) -->
+        {{ if .Site.Params.limit_section_navigation }}
+        <!------------------------------------------------------------>
+
+            <!------------------------------------------------------------>
+            {{ if and (ne .Kind "taxonomy") (ne .Kind "term") }}
+            <!------------------------------------------------------------>
+
+                <!------------------------------------------------------------>
+                {{ $dir_section := "" }}
+                {{ if eq .Kind "home" }}
+                    {{ $dir_section = "\\" }}
+                {{ else }}
+                    {{ if eq .File.Dir "\\" }}
+                        {{ $dir_section = .File.Dir }}
+                    {{ else }}
+                        {{ $dir_section = .Type }}
+                    {{ end }}
+                {{ end }}
+                <!------------------------------------------------------------>
+                <select id="option_articles" onchange="window.document.location.href=this.options[this.selectedIndex].value;">
+                <option value=""></option>
+                <!------------------------------------------------------------>
+                <!-- used .Site.AllPages and not .Pages as this does not work when on Single Pages -->
+                {{ range sort (where .Site.AllPages "Kind" "page") "Title" }}
+
+                    {{ $dir_page := "" }}
+                    {{ if eq .File.Dir "\\" }}
+                        {{ $dir_page = .File.Dir }}
+                    {{ else }}
+                        {{ $dir_page = .Type }}
+                    {{ end }}
+
+                    {{ if eq $dir_page $dir_section }}
+
+                        {{ $title := "" }}
+                        {{ if .Title }}
+                            {{ $title = .Title }}
+                        {{ else }}
+                            {{ $title = .File.TranslationBaseName }}
+                        {{ end }}
+
+                        <option value="{{ .Permalink }}">{{ substr $title 0 24 }}</option>
+
+                    {{ end }}
+
+                {{ end }}
+                <!------------------------------------------------------------>
+                </select>
+                <!------------------------------------------------------------>
+
+            <!------------------------------------------------------------>
+            {{ end }}
+            <!------------------------------------------------------------>
+
+        <!------------------------------------------------------------>
+        {{ else }}
+        <!------------------------------------------------------------>
+
+            <!------------------------------------------------------------>
+            <!-- All Site Pages -->
+            <!------------------------------------------------------------>
+            <select id="option_articles" onchange="window.document.location.href=this.options[this.selectedIndex].value;">
+            <option value=""></option>
+            <!------------------------------------------------------------>
+            {{ range sort (where .Site.AllPages "Kind" "page") "Title" }}
+                {{ $title := "" }}
+                {{ if .Title }}
+                    {{ $title = .Title }}
+                {{ else }}
+                    {{ $title = .File.TranslationBaseName }}
+                {{ end }}
+                <option value="{{ .Permalink }}">{{ substr $title 0 24 }}</option>
+            {{ end }}
+            <!------------------------------------------------------------>
+            </select>
+            <!------------------------------------------------------------>
+
+        <!------------------------------------------------------------>
+        {{ end }}
+        <!------------------------------------------------------------>
+
+    </nav>
+
+    <br>
+
+    <!-- Categories -->
+    {{ $base_url := .Site.BaseURL }}
+    <nav>
+        <h4>Categories</h4>
+        {{ if isset .Site.Taxonomies "categories" }}
+            {{ if not (eq (len .Site.Taxonomies.categories) 0) }}
+                {{ range $name, $items := .Site.Taxonomies.categories }}
+                    <a href="{{ $base_url }}/categories/{{ $name | lower }}/">{{ $name }}</a>
+                    &nbsp;
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    </nav>
+
+    <br>
+
+    <!-- Tags -->
+    {{ $base_url := .Site.BaseURL }}
+    <nav>
+        <h4>Tags</h4>
+        {{ if isset .Site.Taxonomies "tags" }}
+            {{ if not (eq (len .Site.Taxonomies.tags) 0) }}
+                    {{ range $name, $items := .Site.Taxonomies.tags }}
+                    <a href="{{ $base_url }}/tags/{{ $name | lower }}/">{{ $name }}</a>
+                    &nbsp;
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    </nav>
+
+</aside>
+

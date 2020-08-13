@@ -1,0 +1,5 @@
+theme = "hugo-theme-example"
+
+languageCode = "en-GB"
+canonifyURLs = false
+relativeURLs = false
