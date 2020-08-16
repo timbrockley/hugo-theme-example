@@ -44,7 +44,7 @@
                 {{ $class_date := "date" }}
                 <!------------------------------------------------------------>
                 <!-- use default image if not set in front matter -->
-                {{ $image := print $base_url "/images/hugo_logo_200x55.png" }}
+                {{ $image := print $base_url "/images/hugo_logo_200x142.png" }}
                 {{ if .Params.image }}
                     {{ $image = print $base_url .Params.image }}
                 {{ end }}
@@ -67,18 +67,12 @@
                     {{ $date = dateFormat "2006-01-02 15:04" .Date }}
                 {{ end }}
                 <!------------------------------------------------------------>
-                <!-- change class if image not set in front matter -->
-                {{ if .Params.image }}
-                    {{ $class_image = "image2" }}
-                    {{ $class_description = "description2" }}
-                {{ end }}
-                <!------------------------------------------------------------>
 
                 <article onclick="goto_url('{{ .Permalink }}');" >
 
                     <p class="{{ $class_image }}"><a href="{{ .Permalink }}"><img src="{{ $image }}" alt="Article Link"></a></p>
 
-                    <p class="{{ $class_title }}"><a href="{{ .Permalink }}" alt="Article Link">{{ substr $title 0 24 }}</a></p>
+                    <p class="{{ $class_title }}"><a href="{{ .Permalink }}" alt="Article Link">{{ substr $title 0 30 }}</a></p>
 
                     <p class="{{ $class_description }}" alt="Article Link">{{ $description }}</p>
 

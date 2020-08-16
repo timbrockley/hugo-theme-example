@@ -58,7 +58,7 @@
                             {{ $title = .File.TranslationBaseName }}
                         {{ end }}
 
-                        <option value="{{ .Permalink }}">{{ substr $title 0 24 }}</option>
+                        <option value="{{ .Permalink }}">{{ substr $title 0 36 }}</option>
 
                     {{ end }}
 
@@ -88,7 +88,7 @@
                 {{ else }}
                     {{ $title = .File.TranslationBaseName }}
                 {{ end }}
-                <option value="{{ .Permalink }}">{{ substr $title 0 24 }}</option>
+                <option value="{{ .Permalink }}">{{ substr $title 0 36 }}</option>
             {{ end }}
             <!------------------------------------------------------------>
             </select>
@@ -109,7 +109,7 @@
         {{ if isset .Site.Taxonomies "categories" }}
             {{ if not (eq (len .Site.Taxonomies.categories) 0) }}
                 {{ range $name, $items := .Site.Taxonomies.categories }}
-                    <a href="{{ $base_url }}/categories/{{ $name | lower }}/">{{ $name }}</a>
+                    <a href="{{ $base_url }}/categories/{{ $name | lower }}">{{ $name }}</a>
                     &nbsp;
                 {{ end }}
             {{ end }}
@@ -124,7 +124,7 @@
         <h4>Tags</h4>
         {{ if isset .Site.Taxonomies "tags" }}
             {{ if not (eq (len .Site.Taxonomies.tags) 0) }}
-                    {{ range $name, $items := .Site.Taxonomies.tags }}
+                {{ range $name, $items := .Site.Taxonomies.tags }}
                     <a href="{{ $base_url }}/tags/{{ $name | lower }}/">{{ $name }}</a>
                     &nbsp;
                 {{ end }}

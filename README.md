@@ -1,21 +1,20 @@
 ## Hugo Theme Example
 
-####
+
   - [Key Features](#key-features)
   - [Configuration (config.toml)](#configuration-configtoml)
   - [Front Matter Variables](#front-matter)
   - [To Do](#to-do)
   - [Known Issues](#known-issues)
-####
 
-###
+
 ### Key Features
 * Default List and Single Templates
 * Header, Sidebar and Footer CSS Template
 * Section, Categories and Tags Navigation
 * Configurable Settings from site toml file / Front Matter Variables
 
-###
+
 ### Configuration (config.toml)
 
 **Required**
@@ -68,6 +67,7 @@ The default sort for article cards on list pages is by date in descending order.
 2. If "list_sort_order" is set to "asc" or "a" then article cards are sorted in ascending order.
 
 **Limit Options**
+
 ```toml
 [Params]
   limit_section_navigation = false
@@ -78,25 +78,26 @@ The default sort for article cards on list pages is by date in descending order.
 2. If "limit_home_navigation" is true then, when on the home page, only article cards for pages in the home directory are displayed.
 3. If "limit_home_articles" is a number more than zero then the article cards displayed on the current list page are limited by that number.
 
-###
+
 ### Front Matter Variables
 Front matter values for title, description, date and image are displayed inside article cards on list pages.
 
 Categories and tags are used in navigation panes on site sidebar.
 
-###
+_(Images should be correctly sized to fit in article cards on list pages)._
+
+
 ### To Do
 * add social links options
 * add google analytics option
-* show categories and tags for current page
 * create a custom 404 page
-* test with git submodules / github / netify
 * set font size
 * enhanced sitemap / search options
 
-###
+
 ### Known Issues
 * long titles may be cropped in article cards and sidebar select options
+* images not resized to fit article cards
 * multiple blank lines / whitespace in generated code
 * tags/categories/sections => text alignment is a little untidy
 * markdown highlighting appears different to how it appears on other websites
